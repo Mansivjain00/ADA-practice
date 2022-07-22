@@ -67,13 +67,13 @@ int main()
     
     start = clock();
     
-    mergeSort(arr,0,n-1);
+    selection_sort(arr,n-1);
     
     end = clock();
     
-    printf("Time taken: %f", difftime(end,start)/CLOCKS_PER_SEC);
+    printf("Time taken: %f\n", difftime(end,start)/CLOCKS_PER_SEC);
     
-    // displaying the elements
+    // // displaying the elements
     // printf("Sorted array: ");
     // for(int i=0;i<n;i++){
     //     printf("%d ",arr[i]);
