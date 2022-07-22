@@ -67,7 +67,7 @@ int main()
     
     start = clock();
     
-    selection_sort(arr,n-1);
+    mergeSort(arr,n-1);
     
     end = clock();
     
