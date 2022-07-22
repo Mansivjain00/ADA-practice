@@ -48,7 +48,7 @@ int main()
     
     start = clock();
     
-    selection_sort(arr,n-1);
+    selection_sort(arr,n);
     
     end = clock();
     
