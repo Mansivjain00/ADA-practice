@@ -1,0 +1,82 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+void merge(int arr[],int low, int high,int mid){
+    int i=low, j=mid+1;
+    int c[high];
+    
+    int k=low;
+    while(i<=mid && j<=high){
+        if(arr[i]<arr[j]){
+            c[k]=arr[i];
+            i++;
+        }
+        else{
+            c[k]=arr[j];
+            j++;
+        }
+        k++;
+    }
+    
+    while(i<=mid){
+        c[k]=arr[i];
+        i++;
+        k++;
+    }
+    
+    while(j<=high){
+        c[k]=arr[j];
+        j++;
+        k++;
+    }
+    
+    for(i=low;i<=high;i++){
+        arr[i]=c[i];
+    }
+}
+
+void mergeSort(int arr[],int low,int high){
+    if(low<high){
+        int mid = (low + high)/2;
+        mergeSort(arr,low,mid);
+        mergeSort(arr,mid+1,high);
+        merge(arr,low,high,mid);
+    }
+}
+
+
+int main()
+{
+    clock_t start,end;
+    int n;
+    printf("Enter number of elements\n");
+    scanf("%d",&n);
+    
+    int arr[n];
+    
+    // printf("Enter the elements of the array\n");
+    // for(int i=0;i<n;i++){
+    //     scanf("%d",&arr[i]);
+    // }
+    
+    // For random input
+    for(int i=0;i<n;i++){
+        arr[i]=rand();
+    }
+    
+    start = clock();
+    
+    mergeSort(arr,0,n-1);
+    
+    end = clock();
+    
+    printf("Time taken: %f", difftime(end,start)/CLOCKS_PER_SEC);
+    
+    // displaying the elements
+    // printf("Sorted array: ");
+    // for(int i=0;i<n;i++){
+    //     printf("%d ",arr[i]);
+    // }
+    // printf("\n");
+}
