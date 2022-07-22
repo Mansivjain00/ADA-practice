@@ -26,43 +26,39 @@ void selection_sort(int arr[],int n){
     }
 }
 
-// To print the array
-void display(int arr[],int n){
-    for(int i=0;i<n;i++){
-        printf("%d ",arr[i]);
-    }
-}
 
 int main()
 {
-    clock_t start,end;
+   clock_t start,end;
     int n;
     printf("Enter number of elements\n");
     scanf("%d",&n);
     
     int arr[n];
-    int j=0;
-    // Worst case input
-    for(int i=n;i>=1;i--){
-        arr[j++]=i;
-    }
     
-    // incase you want random input type in the following function
+    // printf("Enter the elements of the array\n");
     // for(int i=0;i<n;i++){
-    //     arr[i]=rand();
+    //     scanf("%d",&arr[i]);
     // }
     
-    printf("Array before sorting: ");
-    display(arr,n);
-    start=clock();
+    // For random input
+    for(int i=0;i<n;i++){
+        arr[i]=rand();
+    }
     
-    selection_sort(arr,n);
+    start = clock();
     
-    end=clock();
-    printf("\nArray after sorting: ");
-    display(arr,n);
+    selection_sort(arr,n-1);
     
+    end = clock();
     
-    printf("\nTime taken %f \n", difftime(end,start)/CLOCKS_PER_SEC);
+    printf("Time taken: %f\n", difftime(end,start)/CLOCKS_PER_SEC);
+    
+    // // displaying the elements
+    // printf("Sorted array: ");
+    // for(int i=0;i<n;i++){
+    //     printf("%d ",arr[i]);
+    // }
+    // printf("\n");
     
 }
