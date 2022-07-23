@@ -1,0 +1,80 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int pivot_position(int arr[],int low, int high){
+    
+    int pivot = arr[low];
+    int i=low+1;
+    int j=high;
+    
+    while(i<j){
+        // Move ahead till value is less than pivot
+        while(arr[i]<pivot && i<=high){
+            i++;
+        }
+        
+        // Move ahead till value is greater than pivot
+        while(arr[j]>pivot && j>=low){
+            j--;
+        }
+        
+        // point of violation: swap the values that cause the violation
+        if(i<j){
+            int temp=arr[i];
+            arr[i]=arr[j];
+            arr[j]=temp;
+        }
+    }
+    
+    // While traversing if i>j, it means we have found pivot position(j), so swap pivot with a[j];
+    arr[low] = arr[j];
+    arr[j] = pivot;
+    // returning j as the pivot position
+    return j;
+    
+}
+
+void quickSort(int arr[],int low,int high){
+    if(low<high){
+        int pivot = pivot_position(arr,low,high);
+        quickSort(arr,low,pivot-1);
+        quickSort(arr,pivot+1,high);
+    }
+}
+
+
+int main()
+{
+    clock_t start,end;
+    int n;
+    printf("Enter number of elements\n");
+    scanf("%d",&n);
+    
+    int arr[n];
+    
+    // printf("Enter the elements of the array\n");
+    // for(int i=0;i<n;i++){
+    //     scanf("%d",&arr[i]);
+    // }
+    
+    // For random input
+    for(int i=0;i<n;i++){
+        arr[i]=rand();
+    }
+    
+    start = clock();
+    
+    quickSort(arr,0,n-1);
+    
+    end = clock();
+    
+    printf("Time taken: %f\n", difftime(end,start)/CLOCKS_PER_SEC);
+    
+    // // displaying the elements
+    // printf("Sorted array: ");
+    // for(int i=0;i<n;i++){
+    //     printf("%d ",arr[i]);
+    // }
+    // printf("\n");
+}
