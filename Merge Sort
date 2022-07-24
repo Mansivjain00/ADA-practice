@@ -4,7 +4,7 @@
 
 void merge(int arr[],int low, int high,int mid){
     int i=low, j=mid+1;
-    int c[high];
+    int c[high+1];
     
     int k=low;
     while(i<=mid && j<=high){
