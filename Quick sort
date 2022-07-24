@@ -5,7 +5,7 @@
 int pivot_position(int arr[],int low, int high){
     
     int pivot = arr[low];
-    int i=low+1;
+    int i=low;
     int j=high;
     
     while(i<j){
