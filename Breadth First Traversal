@@ -1,0 +1,55 @@
+#include <stdio.h>
+
+int n, visited[10], adjacency[10][10],queue[10],f=0,r=-1;
+
+void bfs(int v){
+    for(int i=0;i<n;i++){
+        if(visited[i]==0 && adjacency[v][i]==1){
+            queue[++r]=i;
+        }
+    }
+    if(f<=r){
+        visited[queue[f]]=1;
+        bfs(queue[f++]);
+    }
+}
+
+
+int main()
+{
+    int start;
+    printf("Enter number of vertices\n");
+    scanf("%d",&n);
+    
+    for (int i=0;i<n;i++) {
+		visited[i]=0;
+		for (int j=0;j<n;j++)
+		   adjacency[i][j]=0;
+	}
+    
+    printf("Enter the  adjacency matrix\n");
+    for(int i=0;i<n;i++){
+        printf("Enter row %d\n",i);
+        for(int j=0;j<n;j++){
+            scanf("%d",&adjacency[i][j]);
+        }
+    }
+    
+    printf("Enter the element you want to start with\n");
+    scanf("%d",&start);
+    
+    printf("BFS traversal: ");
+    bfs(start);
+    
+    printf("\n The node which are reachable are:\n");
+	for (int i=0;i<n;i++){
+	  if(visited[i]){
+	   printf("%d\t",i);
+	  }
+	   else{
+	       printf("\nBFS is not possible, all nodes are not reachable\n");
+	       break;
+	   }
+	}
+
+}
