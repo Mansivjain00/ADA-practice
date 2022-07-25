@@ -10,7 +10,7 @@ int pivot_position(int arr[],int low, int high){
     
     while(i<j){
         // Move ahead till value is less than pivot
-        while(arr[i]<pivot && i<=high){
+        while(arr[i]<=pivot && i<=high){
             i++;
         }
         
