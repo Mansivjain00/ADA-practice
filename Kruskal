@@ -1,0 +1,69 @@
+#include <stdio.h>
+
+int n,parent[10],cost[10][10],x,y,min,count=0,flag=0,total=0;
+
+void findmin(){
+    min=999;
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            if(cost[i][j]<min){
+                min=cost[i][j];
+                x=i;
+                y=j;
+            }
+        }
+    }
+}
+
+int check_cycle(int x, int y){
+    while(parent[x]!=0){
+        x=parent[x];
+    }
+
+    while(parent[y]!=0){
+        y=parent[y];
+    }
+
+    if(x!=y){
+        parent[y]=x;
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
+
+void kruskal(){
+    while(count!=n-1 && min!=999){
+        findmin();
+        flag=check_cycle(x,y);
+        if(flag){
+            printf("%d->%d: %d\n",x,y,cost[x][y]);
+            count++;
+            total+=cost[x][y];
+        }else{
+            printf("Cycle detected: Excluding edge %d->%d with weight %d\n",x,y,cost[x][y]);
+        }
+        cost[x][y]=999;
+        cost[y][x]=999;
+    }
+    printf("Total minimum cost of the spanning tree is %d",total);
+}
+
+void main(){
+    printf("Enter the number of edges in the graph\n");
+    scanf("%d",&n);
+
+    printf("Enter the cost adjacency matrix of the graph\n");
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            scanf("%d",&cost[i][j]);
+            if(cost[i][j]==0){
+                cost[i][j]=999;
+            }
+        }
+    }
+
+    kruskal();
+}
+
