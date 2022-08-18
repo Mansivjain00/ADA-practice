@@ -1,0 +1,47 @@
+#include <stdio.h>
+
+void warshall(int arr[10][10],int n){
+    for(int k=0;k<n;k++){
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                arr[i][j]=arr[i][j] | (arr[i][k] & arr[k][j]);
+            }
+        }
+    }
+}
+
+void main(){
+    int n,flag=0;
+    int arr[10][10];
+    printf("Enter number of vertices\n");
+    scanf("%d",&n);
+    
+    printf("Enter the adjacency matrix\n");
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            scanf("%d",&arr[i][j]);
+        }
+    }
+    
+    warshall(arr,n);
+    
+    printf("Transitive Closure: \n");
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            printf("%d ",arr[i][j]);
+        }
+        printf("\n");
+    }
+    
+    // Modification
+    for(int i=0;i<n;i++){
+        if(arr[i][i]==1){
+            printf("Cycle detected\n");
+            flag=1;
+            break;
+        }
+    }
+    if(flag==0){
+        printf("No cycle detected\n");
+    }
+}
