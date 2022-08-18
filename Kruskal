@@ -62,8 +62,8 @@ void main(){
                 cost[i][j]=999;
             }
         }
+        parent[i]=0;
     }
 
     kruskal();
 }
-
