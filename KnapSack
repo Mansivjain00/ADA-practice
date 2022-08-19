@@ -1,0 +1,75 @@
+#include <stdio.h>
+
+int max(int a, int b){
+    if(a>b){
+        return a;
+    }
+    else{
+        return b;
+    }
+}
+
+void knapsack(int weights[],int profit[],int size, int no_of_objects){
+    int knapsack[no_of_objects+1][size+1];
+    int count=0;
+    int result;
+    int j;
+    
+    for(int i=0;i<=no_of_objects;i++){
+        for(int j=0;j<=size;j++){
+            if(i==0||j==0){
+                knapsack[i][j]=0;
+            }
+            
+            else if(weights[i-1]<=j){
+                knapsack[i][j]=max(knapsack[i-1][j],knapsack[i-1][j-weights[i-1]]+profit[i-1]);
+            }
+            
+            else{
+                knapsack[i][j]=knapsack[i-1][j];
+            }
+        }
+    }
+    
+    result=knapsack[no_of_objects][size];
+    
+    printf("Maximum profit that can be obtained: %d\n",result);
+    
+    printf("Objects that were included: ");
+    j=size;
+    for(int i=no_of_objects;i>0 && result>0;i--){
+        if(result==knapsack[i-1][j]){
+            continue;
+        }
+        else{
+            count++;
+            printf("%d ",weights[i-1]);
+            result=result-profit[i-1];
+            j=j-weights[i-1];
+        }
+    }
+    
+    printf("\nCount of objects: %d",count);
+}
+
+int main()
+{
+    int n,w[10],p[10],s;
+    printf("Enter the number of objects\n");
+    scanf("%d",&n);
+    
+    printf("Enter weights of the objects\n");
+    for(int i=0;i<n;i++){
+        scanf("%d",&w[i]);
+    }
+    
+    printf("Enter profits of the objects\n");
+    for(int i=0;i<n;i++){
+        scanf("%d",&p[i]);
+    }
+    
+    printf("Enter size of the knapsack\n");
+    scanf("%d",&s);
+    
+    knapsack(w,p,s,n);
+}
